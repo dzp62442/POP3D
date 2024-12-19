@@ -1,3 +1,9 @@
+ckpts/
+*.pkl
+retrieval_benchmark/
+pretrained/
+out/
+
 # ignore ./data ./ckpt and ./pretarained folders
 ./data/
 ./ckpt/

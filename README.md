@@ -1,3 +1,19 @@
+## 1 环境配置
+
+```shell
+# 仅包含 POP-3D 基本环境，还需要手动安装后面的 MaskCLIP 库
+conda create -n pop3d python=3.9
+conda activate pop3d
+pip install torch==1.10.1+cu111 torchvision==0.11.2+cu111 torchaudio==0.10.1 -f https://download.pytorch.org/whl/cu111/torch_stable.html
+pip install mmcv-full==1.5.0 -f https://download.openmmlab.com/mmcv/dist/cu113/torch1.10.0/index.html
+pip install -r requirements.txt
+```
+
+注意事项：
+1. 使用 MaskCLIP 提取特征并保存为 npy 文件，需要消耗极高的硬盘空间。仅完成了 9% 的图像特征提取，就已经占用了 166GB 的硬盘空间。
+
+------
+
 <div align="center">
 <h2>
 🍾 POP-3D: Open-Vocabulary 3D Occupancy Prediction from Images<br>

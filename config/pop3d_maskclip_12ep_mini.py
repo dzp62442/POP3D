@@ -17,7 +17,7 @@ dataset_params = dict(
     max_volume_space=[51.2, 51.2, 3],
     min_volume_space=[-51.2, -51.2, -5],
     features_path="./data/nuscenes/maskclip_features_projections",
-    projections_path="./data/nuscenes/features/projections/data/nuscenes",
+    projections_path="./data/nuscenes/features/projections",
     features_type="clip",
 )
 

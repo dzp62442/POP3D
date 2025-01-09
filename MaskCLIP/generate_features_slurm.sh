@@ -10,7 +10,7 @@ STEP=`echo "(${LAST}-${FIRST})/${NUM_GPUS}+1" | bc`
 
 CFG_PATH=configs/maskclip_plus/anno_free/maskclip_plus_vit16_deeplabv2_r101-d8_512x512_8k_coco-stuff164k__nuscenes_trainvaltest.py
 CKPT_PATH=ckpts/maskclip_plus_vit16_deeplabv2_r101-d8_512x512_8k_coco-stuff164k.pth
-PROJ_DIR=../data/nuscenes/features/projections/data/nuscenes
+PROJ_DIR=../data/nuscenes/features/projections
 OUT_DIR=../data/nuscenes/maskclip_features_projections
 PARTITION=qgpu
 

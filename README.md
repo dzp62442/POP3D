@@ -1,16 +1,25 @@
 ## 1 环境配置
 
+### 1.1 Conda 环境配置
 ```shell
-# 仅包含 POP-3D 基本环境，还需要手动安装后面的 MaskCLIP 库
+# 安装 Pop3D 的环境，兼容了 MaskCLIP 的环境
 conda create -n pop3d python=3.9
 conda activate pop3d
 pip install torch==1.10.1+cu111 torchvision==0.11.2+cu111 torchaudio==0.10.1 -f https://download.pytorch.org/whl/cu111/torch_stable.html
-pip install mmcv-full==1.5.0 -f https://download.openmmlab.com/mmcv/dist/cu113/torch1.10.0/index.html
+pip install mmcv-full==1.5.0 -f https://download.openmmlab.com/mmcv/dist/cu111/torch1.10.0/index.html
 pip install -r requirements.txt
+# 安装后面的 MaskCLIP
+cd MaskCLIP
+pip install -v -e .
 ```
 
+### 1.2 预训练模型
+
+1. 下载 [PoP-3D 预训练权重](https://github.com/zhiqi-li/storage/releases/download/v1.0/r101_dcn_fcos3d_pretrain.pth) 放到 `./ckpts` 中
+
 注意事项：
-1. 使用 MaskCLIP 提取特征并保存为 npy 文件，需要消耗极高的硬盘空间。仅完成了 9% 的图像特征提取，就已经占用了 166GB 的硬盘空间。
+1. 官方文档中将 pop3d 和 maskclip 两个环境分开了，为了便于管理维护，复现时合并为一个环境
+2. 使用 MaskCLIP 提取特征并保存为 npy 文件，需要消耗极高的硬盘空间。仅完成了 9% 的图像特征提取，就已经占用了 166GB 的硬盘空间。
 
 ------
 
@@ -152,7 +161,7 @@ python tools/maskclip_utils/convert_clip_weights.py --model ViT16
 ```bash
 CFG_PATH=configs/maskclip_plus/anno_free/maskclip_plus_vit16_deeplabv2_r101-d8_512x512_8k_coco-stuff164k__nuscenes_trainvaltest.py
 CKPT_PATH=ckpts/maskclip_plus_vit16_deeplabv2_r101-d8_512x512_8k_coco-stuff164k.pth
-PROJ_DIR=../data/nuscenes/features/projections/data/nuscenes
+PROJ_DIR=../data/nuscenes/features/projections
 OUT_DIR=../data/nuscenes/maskclip_features_projections
 python tools/extract_features.py ${CFG_PATH} --save-dir ${OUT_DIR} --checkpoint ${CKPT_PATH} --projections-dir ${PROJ_DIR} --complete
 ```
@@ -198,11 +207,11 @@ A) single-GPU (slow):
 CFG=...
 CKPT=...
 ZEROSHOT_PTH=...
- python3 eval.py --py-config ${CFG} --resume-from ${CKPT} --maskclip --no-wandb --text-embeddings-path ${ZEROSHOT_PTH}
+python3 eval.py --py-config ${CFG} --resume-from ${CKPT} --maskclip --no-wandb --text-embeddings-path ${ZEROSHOT_PTH}
 ```
 If you followed the instructions above, you can run:
 ```shell
- python3 eval.py --py-config config/pop3d_maskclip_12ep.py --resume-from ./pretrained/pop3d_weights.pth --maskclip --no-wandb --text-embeddings-path ./pretrained/zeroshot_weights.pth
+python3 eval.py --py-config config/pop3d_maskclip_12ep.py --resume-from ./pretrained/pop3d_weights.pth --maskclip --no-wandb --text-embeddings-path ./pretrained/zeroshot_weights.pth
 ```
 
 B) multi-GPU using SLURM (faster), e.g.:

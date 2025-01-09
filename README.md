@@ -1,6 +1,5 @@
 ## 1 环境配置
 
-### 1.1 Conda 环境配置
 ```shell
 # 安装 Pop3D 的环境，兼容了 MaskCLIP 的环境
 conda create -n pop3d python=3.9
@@ -12,10 +11,6 @@ pip install -r requirements.txt
 cd MaskCLIP
 pip install -v -e .
 ```
-
-### 1.2 预训练模型
-
-1. 下载 [PoP-3D 预训练权重](https://github.com/zhiqi-li/storage/releases/download/v1.0/r101_dcn_fcos3d_pretrain.pth) 放到 `./ckpts` 中
 
 注意事项：
 1. 官方文档中将 pop3d 和 maskclip 两个环境分开了，为了便于管理维护，复现时合并为一个环境

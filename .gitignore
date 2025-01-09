@@ -3,6 +3,7 @@ ckpts/
 retrieval_benchmark/
 pretrained/
 out/
+*pred.jpg
 
 # ignore ./data ./ckpt and ./pretarained folders
 ./data/

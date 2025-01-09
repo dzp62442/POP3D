@@ -502,11 +502,11 @@ def main(local_rank, args):
                     )
                 )[1:]
                 fig = plt.figure()
-                show3d(xyz_pred.detach().cpu(), fig, 1, 2, 1)
-                show3d(xyz_tgt.detach().cpu(), fig, 1, 2, 2)
+                show3d(xyz_pred.detach().cpu(), fig, 1, 2, 1, s=0.5)
+                show3d(xyz_tgt.detach().cpu(), fig, 1, 2, 2, s=0.5)
                 if args.plot_dir is not None:
                     save_path = os.path.join(args.plot_dir, f'{i_iter_val}pred.jpg')
-                    plt.savefig(save_path, bbox_inches='tight')
+                    plt.savefig(save_path)
                     print(f'Saved to {save_path}')
                 plt.show()
 

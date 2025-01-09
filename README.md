@@ -20,6 +20,8 @@ pip install -v -e .
 注意事项：
 1. 官方文档中将 pop3d 和 maskclip 两个环境分开了，为了便于管理维护，复现时合并为一个环境
 2. 使用 MaskCLIP 提取特征并保存为 npy 文件，需要消耗极高的硬盘空间。仅完成了 9% 的图像特征提取，就已经占用了 166GB 的硬盘空间。
+3. 先运行 `data/reorganize_images_split.py` 脚本，将 `val_mini` 的图像提取出来；然后在运行 `MaskCLIP/tools/extract_features.py` 时加入 `--val` 参数，只提取 `val_mini` 的特征；最后在运行 `eval.py` 时使用 `config/pop3d_maskclip_12ep_mini.py` 配置文件，仅在 `val_mini` 上进行评估。
+4. 运行 `eval.py` 时使用 `--plot-dir save_path` 参数，可以将预测结果保存为图片。
 
 ------
 
@@ -211,7 +213,7 @@ python3 eval.py --py-config ${CFG} --resume-from ${CKPT} --maskclip --no-wandb -
 ```
 If you followed the instructions above, you can run:
 ```shell
-python3 eval.py --py-config config/pop3d_maskclip_12ep.py --resume-from ./pretrained/pop3d_weights.pth --maskclip --no-wandb --text-embeddings-path ./pretrained/zeroshot_weights.pth
+python3 eval.py --py-config config/pop3d_maskclip_12ep.py --resume-from ./pretrained/pop3d_weights.pth --maskclip --no-wandb --text-embeddings-path ./pretrained/zeroshot_weights.pth --no-dist
 ```
 
 B) multi-GPU using SLURM (faster), e.g.:

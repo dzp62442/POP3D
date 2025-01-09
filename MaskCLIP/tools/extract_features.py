@@ -84,12 +84,15 @@ def parse_args():
                         )
     parser.add_argument('--num-workers', type=int, default=None)
     parser.add_argument('--complete', help='Load all images regardless the split.', action='store_true')
+    parser.add_argument('--train', help='Only load train images.', action='store_true')
+    parser.add_argument('--val', help='Only load val images.', action='store_true')
+    parser.add_argument('--test', help='Only load test images.', action='store_true')
     parser.add_argument('--paths-file', type=str, default=None)
     parser.add_argument('--show', action='store_true')
     parser.add_argument('--show-dir', type=str, default=None)
 
     args = parser.parse_args()
-    args.complete = True
+    # args.complete = True
 
     if 'LOCAL_RANK' not in os.environ:
         os.environ['LOCAL_RANK'] = str(args.local_rank)
@@ -156,6 +159,12 @@ def main():
 
     if args.complete:
         cfg.data.test = cfg.data.complete
+    elif args.train:
+        cfg.data.test = cfg.data.train
+    elif args.val:
+        cfg.data.test = cfg.data.val
+    elif args.test:
+        cfg.data.test = cfg.data.test
     elif args.test_on_train:
         cfg.data.test = cfg.data.test_train
         

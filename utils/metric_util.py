@@ -188,7 +188,7 @@ class MeanIoU:
                   f'class_num: {class_num}, cluster_num: {cluster_num}')
         t5=time.time()-t5s
 
-        rank = torch.distributed.get_rank() if rank is None else rank
+        # rank = torch.distributed.get_rank() if rank is None else rank
         time_total = time.time()-t1s
         # to_print = '[rank {}, {}] t1={:.1f}s, t3={:.1f}s, t4={:.1f}s, t5={:.1f}s, total={:.1f}s'.format(rank,self.name,t1,t3,t4,t5,time_total)
         # logger.info(to_print)
